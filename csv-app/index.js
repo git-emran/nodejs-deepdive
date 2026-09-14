@@ -1,6 +1,5 @@
 import { appendFileSync } from "fs"
 import { createInterface } from "readline"
-import { promisify } from "util"
 
 
 const readline = createInterface({
@@ -8,17 +7,9 @@ const readline = createInterface({
   output: process.stdout
 })
 
-const readLineAsync = promisify(readline.question).bind(rl)
-(async () => {
-  try {
-    const name = await readLineAsync('what is your name ?')
-    console.log(`Hello ${name}`)
-  } catch (err) {
-    console.error('Error:', err.message)
-  }finally {
-    readline.close()
-  }
-})
+const readLineAsync = (message) =>
+  new Promise((resolve) => readline.question(message, resolve))
+
 
 class Person {
   constructor(name = "", number = "", email = ""){
@@ -42,6 +33,14 @@ const startApp = async () => {
   let shouldContinue = true
   while ( shouldContinue ) {
     const name = await readLineAsync("Contact Name: ")
+    const number = await readLineAsync("Contact Number: ")
+    const email = await readLineAsync("Contact Email: ")
 
+    const person = new Person(name, number, email)
+    person.saveToCSV()
+    const response = await readLineAsync("Continue? [y to continue]: ")
+    shouldContinue = response.toLowerCase() === "y"
   }
+  readline.close()
 }
+startApp()
