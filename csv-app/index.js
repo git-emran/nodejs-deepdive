@@ -1,4 +1,4 @@
-import { appendFileSync } from "fs"
+import { appendFileSync, existsSync } from "fs"
 import { createInterface } from "readline"
 
 const PHONE_REGEX = /^\d+$/
@@ -27,11 +27,18 @@ class Person {
     this.name = name
     this.number = number
     this.email = email
+    this.createdAt = new Date().toISOString()
   }
   saveToCSV(){
-    const content = `${this.name}, ${this.number}, ${this.email}\n`
+    const fileExists = existsSync("./contacts.csv")
+    const content = `${this.name}, ${this.number}, ${this.email}, ${this.createdAt}\n`
     try {
-      appendFileSync("./contacts.csv", content)
+      if (!fileExists){
+        const header = "NAME, PHONE_NUMBER, EMAIL, CREATED_AT\n"
+        appendFileSync("./contacts.csv", header + content)
+      } else {
+        appendFileSync("./contacts.csv", content)
+      }
       console.log(`${this.name} Saved!`)
     } catch(err){
       console.error(err)
