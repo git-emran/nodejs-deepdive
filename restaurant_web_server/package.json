@@ -1,0 +1,17 @@
+{
+  "name": "restaurant_web_server",
+  "version": "1.0.0",
+  "description": "A web application for a local restaurant",
+  "license": "ISC",
+  "author": "EmranH",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@fastify/view": "^9.1.0",
+    "ejs": "^3.1.6",
+    "fastify": "^4.29.1"
+  }
+}
