@@ -1,0 +1,15 @@
+{
+  "name": "password-manager",
+  "version": "1.0.0",
+  "description": "A node app for storing passwords",
+  "license": "ISC",
+  "author": "EmranH",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1"
+  }
+}
